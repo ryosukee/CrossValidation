@@ -14,5 +14,6 @@ for f in files:
             continue
         append(line.strip().split(" ")[-1])
 
-pickle.dump(l, "class_list.pkl")
+l = list(set(l))
+pickle.dump(l, open("class_list.pkl", "w"))
 
