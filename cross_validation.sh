@@ -1,19 +1,16 @@
 #!/bin/sh
 
-# bash ./tune.sh -o
+# bash ./cross_validation.sh -o
 # -o : Oのみのファイルを除外しつつ同じsurfaceの文をtestとtrainで分けないようにする
 
 # オプション引数の解析
+FLG_O="f"
 while getopts o OPT
 do
     case $OPT in
         "o" ) FLG_O="TRUE" ;;
     esac
 done
-
-
-mkdir tune
-cd ./tune
 
 [ -e tests ] && rm -r tests
 [ -e trains ] && rm -r trains
@@ -36,7 +33,8 @@ mkdir splits
 mkdir conllevals
 
 # Oのみの文を除外する
-if $FLG_O then
+if [ $FLG_O = "TRUE" ]
+then
     cd onlyBI
     echo create BI nolimit file
     python ../scripts/get_BI_sent.py -1 ../labeled_data/* > temp
@@ -44,8 +42,6 @@ if $FLG_O then
     rm temp
     python ../scripts/split_only_BI.py
     cd ..
-
-
 else
 # 除外せずに分割する
     python ./scripts/split.py -f ./labeled_data/* -o ./splits -s 10
@@ -94,11 +90,7 @@ for i in 0 1 2 3 4 5 6 7 8 9
     done
 t1=`date +%s`
 echo "-------cross grade---------"
-python /home/r-miyazaki/work/asakawa/ryosuke/CRF/scripts/cross_grade.py evaluations/*.dump > evaluations/cross_evaluation
+python scripts/cross_grade.py evaluations/*.dump > evaluations/cross_evaluation
 t2=`date +%s`
 echo `expr $t2 - $t1`sec
-
-
-
-
 
