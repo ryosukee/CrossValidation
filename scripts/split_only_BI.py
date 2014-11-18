@@ -15,6 +15,7 @@ per = count / 10
 files = []
 count = 0
 temp = []
+remain = []
 for line in open("./result"):
    count += int(line.strip().split(" ")[0])
    temp.append(line.strip().split(" ")[1])
