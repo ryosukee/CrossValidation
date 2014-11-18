@@ -9,7 +9,8 @@ count = 0
 for line in open("./result"):
     count += int(line.strip().split(" ")[0])
 
-per = count / 10
+# 先に細かく割っとく, 後で分割するときに2周して追記する
+per = count / 20
 
 # 分割するファイル群を決める
 files = []
