@@ -9,10 +9,7 @@ class_dict = sys.argv[2]
 eval_dump = sys.argv[3]
 output_diff = sys.argv[4]
 
-tmp_classes = pickle.load(open(class_dict))
-classes = map(lambda c: "B-"+c, tmp_classes)
-classes += map(lambda c: "I-"+c, tmp_classes)
-classes.append("O")
+classes = pickle.load(open(class_dict))
 tp = defaultdict(int)
 fp = defaultdict(int)
 tn = defaultdict(int)
