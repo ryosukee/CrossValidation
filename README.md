@@ -7,7 +7,7 @@
 3. template を自分が使うテンプレートに置き換える
 4. ./cross\_validation.sh を実行  
 例)  
-`./cross\_validation.sh -o > result`  
+`./cross_validation.sh -o > result`  
 
 -o オプションをつけるとOのラベルしかついていない文を除きます。
 
