@@ -13,7 +13,7 @@
 -o オプションをつけるとOのラベルしかついていない文を除きます。
 
 ちなみに、CRF++への入力形式（文区切りが空行）なら  
-`python script/sent_count.py inputfile`  
+`python scripts/sent_count.py inputfile`  
 で文数（空行の数）を数えられます。
 
 
