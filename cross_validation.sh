@@ -91,7 +91,7 @@ for i in 0 1 2 3 4 5 6 7 8 9
     done
 t1=`date +%s`
 echo "-------cross grade---------"
-python scripts/cross_grade.py evaluations/*.dump > evaluations/cross_evaluation
+python scripts/cross_grade.py evaluations/*.dump > evaluations/cross_evaluation.txt
 t2=`date +%s`
 echo `expr $t2 - $t1`sec
 
