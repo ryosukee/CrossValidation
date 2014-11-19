@@ -3,8 +3,8 @@
 
 ### 使い方
 1. このリポジトリをcloneするかDownloadするかして
-2. labeled\_dataディレクトリにCRF++に入力する形式のラベル付きデータを入れる（複数ファイル可） 
-(このときに、最初からある`replase_this_to_labeled_data`というファイルを消してください) 
+2. labeled\_dataディレクトリにCRF++に入力する形式のラベル付きデータを入れる（複数ファイル可）  
+(このとき、最初からある`replase_this_to_labeled_data`というファイルを消してください) 
 3. template を自分が使うテンプレートに置き（書き）換える
 4. ./cross\_validation.sh を実行  
 例)  
