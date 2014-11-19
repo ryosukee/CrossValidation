@@ -21,9 +21,13 @@
 間違えていた部分を抽出して出力しています。  
 実際にデータを見て確かめたいときに使ってください。   
 
+* dumps  
+計算するために必要な途中経過をdumpしたbinaryデータです。  
+処理が終わったら基本的にもう必要ありません。  
+eval.のファイルがdict, class\_list.pklがlistで、それぞれpythonのpickleモジュールでシリアライズしています。  
+
 * evaluations  
 自前で用意したgrade.pyスクリプトによって評価した結果が出力されます。  
-拡張子が`.dump`のものは途中経過用の計算用で、`.txt`のデータが評価結果です。  
 cross\_evaluation.txtは交差検定のMacro平均とMicro平均の計算結果です。
 
 * models  
