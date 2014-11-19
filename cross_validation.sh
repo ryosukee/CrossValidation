@@ -56,6 +56,7 @@ for i in 0 1 2 3 4 5 6 7 8 9
     do
         echo $i
         mv ./splits/split.$i.txt ./splits/test.$i.txt
+        cp ./splits/test.$i.txt ./tests
         cat ./splits/split* > ./trains/train.$i.temp
 
         #CRF
