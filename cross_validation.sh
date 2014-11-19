@@ -21,6 +21,7 @@ done
 [ -e onlyBI ] && rm -r onlyBI
 [ -e splits ] && rm -r splits
 [ -e conllevals ] && rm -r conllevals
+[ -e dumps ] && rm -r dumps
 
 mkdir tests
 mkdir trains
@@ -31,6 +32,7 @@ mkdir evaluations
 mkdir onlyBI
 mkdir splits
 mkdir conllevals
+mkdir dumps
 
 # Oのみの文を除外する
 if [ $FLG_O = "TRUE" ]
@@ -79,19 +81,17 @@ for i in 0 1 2 3 4 5 6 7 8 9
         echo `expr $t2 - $t1`sec
         t1=`date +%s`
         echo "-----------grade $i-----------"
-        python ./scripts/grade.py results/result.$i.temp class_list.pkl evaluations/eval.$i.dump diffs/$i> evaluations/eval.$i.txt
+        python ./scripts/grade.py results/result.$i.temp ./dumps/class_list.pkl ./dumps/eval.$i.dump diffs/$i> evaluations/eval.$i.txt
         perl ./scripts/conlleval.pl -d "\t" < results/result.$i.temp > conllevals/eval.$i
        
         t2=`date +%s`
         echo `expr $t2 - $t1`sec
-        
-
 
         mv splits/test.$i.txt splits/split.$i.txt   
     done
 t1=`date +%s`
 echo "-------cross grade---------"
-python scripts/cross_grade.py evaluations/*.dump > evaluations/cross_evaluation.txt
+python scripts/cross_grade.py ./dumps/eval.* > evaluations/cross_evaluation.txt
 t2=`date +%s`
 echo `expr $t2 - $t1`sec
 
