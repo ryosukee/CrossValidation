@@ -5,7 +5,7 @@
 
 #まず全文数を数える
 count = 0
-for line in open("./result"):
+for line in open("./result.txt"):
     count += int(line.strip().split(" ")[0])
 
 # 先に細かく割っとく, 後で分割するときに2周して追記する
@@ -16,7 +16,7 @@ files = []
 count = 0
 temp = []
 remain = []
-for line in open("./result"):
+for line in open("./result.txt"):
    count += int(line.strip().split(" ")[0])
    temp.append(line.strip().split(" ")[1])
    if count >= per:

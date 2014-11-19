@@ -38,7 +38,7 @@ then
     cd onlyBI
     echo create BI nolimit file
     python ../scripts/get_BI_sent.py -1 ../labeled_data/* > temp
-    python ../scripts/sort_BI_sent.py temp > result
+    python ../scripts/sort_BI_sent.py temp > result.txt
     rm temp
     python ../scripts/split_only_BI.py
     cd ..
