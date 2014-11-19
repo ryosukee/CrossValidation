@@ -2,7 +2,6 @@
 #coding:utf-8
 
 # onlyBIの出力結果を10分割にする
-import sys
 
 #まず全文数を数える
 count = 0
@@ -27,23 +26,29 @@ for line in open("./result"):
        temp = [] 
 
 # 分割する(10を超えてたらbreakして追記)
-for i in range(len(files)):
+i = 0
+for ff in files:
     if i >= 10:
        remain = files[i:]
        break 
     fw = open("../splits/split."+str(i)+".txt", "w")
 
     print ",".join(files[i]), "->split.", str(i)+".txt"
-    for ff in files:
-       for f in ff:
-            for line in open("./"+f):
-                fw.write(line)
+    for f in ff:
+         for line in open("./"+f):
+             fw.write(line)
+    fw.close()
+    i += 1
 
 i = 0
 for ff in remain:
     for f in ff:
         fw = open("../splits/split."+str(i)+".txt", "a")
         print f, "->split.", str(i)+".txt"
+        for line in open("./"+f):
+            fw.write(line)
+        fw.close()
         i += 1
         if i>=10:
             i=0
+
