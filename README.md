@@ -47,10 +47,10 @@ labeled\_dataに入れたデータを10分割したデータが出力されま�
 `-o`オプションを指定した場合は、この時点でOのみの文は除外されています。  
 
 * tests  
-交差検定中でtestデータになったデータが出力されます。  
+testデータとして使われたデータが出力されます。  
 
 * trains  
-交差検定中でtrainデータになったデータが出力されます。  
+trainデータとして使われたデータが出力されます。  
 
 
 [conll]: http://www.cnts.ua.ac.be/conll2000/chunking/output.html
