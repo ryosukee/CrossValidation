@@ -15,6 +15,8 @@
 
 ### 結果
 実行すると以下のディレクトリができます。  
+評価結果はconllevalとevaluationsに出力されます。  
+
 * conlleval  
 [conll2000のスクリプト][conll]を使って評価した結果が出力されます。  
 
