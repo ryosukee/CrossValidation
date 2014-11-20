@@ -33,7 +33,7 @@
 eval.のファイルがdict, class\_list.pklがlistで、それぞれpythonのpickleモジュールでシリアライズしています。  
 
 * evaluations  
-自前で用意したgrade.pyスクリプトによって評価した結果が出力されます。  
+自前で用意したeval.pyスクリプトによって評価した結果が出力されます。  
 cross\_evaluation.txtは交差検定のMacro平均とMicro平均の計算結果です。
 
 * models  

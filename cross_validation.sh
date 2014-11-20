@@ -81,7 +81,7 @@ for i in 0 1 2 3 4 5 6 7 8 9
         echo `expr $t2 - $t1`sec
         t1=`date +%s`
         echo "-----------grade $i-----------"
-        python ./scripts/grade.py results/result.$i.temp ./dumps/class_list.pkl ./dumps/eval.$i.dump diffs/$i> evaluations/eval.$i.txt
+        python ./scripts/eval.py results/result.$i.temp ./dumps/class_list.pkl ./dumps/eval.$i.dump diffs/$i> evaluations/eval.$i.txt
         perl ./scripts/conlleval.pl -d "\t" < results/result.$i.temp > conllevals/eval.$i
        
         t2=`date +%s`
