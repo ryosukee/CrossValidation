@@ -8,6 +8,8 @@ count = 0
 for line in open("./result.txt"):
     count += int(line.strip().split(" ")[0])
 
+
+# 10で割ると割り切れずに9分割とかになったりするから
 # 先に細かく割っとく, 後で分割するときに2周して追記する
 per = count / 20
 
@@ -51,4 +53,18 @@ for ff in remain:
         i += 1
         if i>=10:
             i=0
+
+# othersを分割して追記
+i = 0
+print "others"
+fw = open("../splits/split."+str(i)+".txt", "a")
+for line in open("./others"):
+    fw.write(line)
+    if line.strip() == "":
+        fw.close()
+        i += 1
+        if i>=10:
+            i=0
+        fw = open("../splits/split."+str(i)+".txt", "a")
+fw.close()
 

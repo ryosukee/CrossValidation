@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # bash ./cross_validation.sh -o
-# -o : Oのみのファイルを除外しつつ同じsurfaceの文をtestとtrainで分けないようにする
+# -o : training時にOのみのファイルを除外して, 同じsurfaceをtestとtrainの両方で出現しないようにする。
 
 # オプション引数の解析
 FLG_O="f"
@@ -60,6 +60,13 @@ for i in 0 1 2 3 4 5 6 7 8 9
         mv ./splits/split.$i.txt ./splits/test.$i.txt
         cp ./splits/test.$i.txt ./tests
         cat ./splits/split* > ./trains/train.$i.temp
+        if [ $FLG_O = "TRUE" ]
+        then 
+        # Oオプションがあったときに, trainファイルからOのみの文を除外する
+        python ./scripts/rm_only_O.py ./trains/train.$i.temp > ./trains/train.$i.temp2
+        rm ./trains/train.$i.temp
+        mv ./trains/train.$i.temp2 ./trains/train.$i.temp 
+        fi
 
         #CRF
         t1=`date +%s`
