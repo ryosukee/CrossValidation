@@ -33,7 +33,11 @@ for f in files:
             else:
                 c = fo_name[0][1]
                 name = "_".join(x[0] for x in fo_name)
-                name += ".txt"
+                # if file name is too long
+                if len(name.decode("utf-8")) > 20:
+                    name = name.decode("utf-8")[:20].encode("utf-8") + "....txt"
+                else:
+                    name += ".txt"
                 #out_strs[name] = out_strs.get(name, str())
                 if nonlimitFlag or count.get(name, (0,c))[0] != limit:
                  #   out_strs[name] += sent
