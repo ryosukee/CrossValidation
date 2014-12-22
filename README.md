@@ -34,6 +34,7 @@
 
 * conlleval  
 [conll2000のスクリプト][conll]を使って評価した結果が出力されます。  
+conll\_calc.pyを使って交差検定のMacro値をcross\_evaluation.txtに出力しています。  
 
 * diffs  
 間違えていた部分を抽出して出力しています。  
