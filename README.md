@@ -63,14 +63,13 @@ CRF＋＋でtestした結果が出力されます。
 
 * splits  
 labeled\_dataに入れたデータを10分割したデータが出力されます。  
-`-o`オプションを指定した場合は、この時点でOのみの文は除外されています。  
 
 * tests  
 testデータとして使われたデータが出力されます。  
 
 * trains  
 trainデータとして使われたデータが出力されます。  
-
+`-o`オプションを指定した場合は、ここでOのみの文は除外されています。  
 
 [conll]: http://www.cnts.ua.ac.be/conll2000/chunking/output.html
 
