@@ -38,13 +38,18 @@ for f in sys.argv[1:]:
             d[name]["F-value"] = d[name].get("F-value", float()) + f
 
 # outputs
+ac = ("%.2f" % (d[0]["Accuracy"]/sumnum)).rjust(6)
+pr = ("%.2f" % (d[0]["Precision"]/sumnum)).rjust(6)
+re = ("%.2f" % (d[0]["Recall"]/sumnum)).rjust(6)
+f =  ("%.2f" % (d[0]["F-value"]/sumnum)).rjust(6)
 print "Maccro"
-print "Accuracy: %5f%%; Precision: %5f%%; Recall: %df%%; F: %5f" % \
-        (round(d[0]["Accuracy"]/sumnum,5), round(d[0]["Precision"]/sumnum,5), round(d[0]["Recall"]/sumnum,5), round(d[0]["F-value"]/sumnum,5),)
+print "Accuracy: %s%%; Precision: %s%%; Recall: %s%%; F: %s" % (ac, pr, re, f)
 
 del d[0]
 for name, dd in d.items():
-    print "%17s: Precision: %5f%%; Recall: %5f%%; F: %5f" % \
-        (name, round(dd["Precision"]/sumnum, 5), round(dd["Recall"]/sumnum, 5), round(dd["F-value"]/sumnum, 5))
+    pr = ("%.2f" % (dd["Precision"]/sumnum)).rjust(6)
+    re = ("%.2f" % (dd["Recall"]/sumnum)).rjust(6)
+    f = ("%.2f" % (dd["F-value"]/sumnum)).rjust(6)
+    print "%17s: Precision: %s%%; Recall: %s%%; F: %s" % (name, pr, re, f)
 
 
