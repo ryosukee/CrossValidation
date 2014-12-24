@@ -83,7 +83,7 @@ for i in 0 1 2 3 4 5 6 7 8 9
         t1=`date +%s`
         echo "-----------diff $i-----------"
         mkdir diffs/$i
-		python ./scripts/extract_fptn/diff.py results/result.$i.temp > diffs/$i/diff.txtt
+		python ./scripts/extract_fptn/diff.py results/result.$i.temp > diffs/$i/diff.txt
         python ./scripts/extract_fptn/spl_diff.py diffs/$i/diff.txt diffs/$i/
         python ./scripts/extract_fptn/get_tp.py results/result.$i.temp > diffs/$i/tp.txt
         python ./scripts/extract_fptn/get_word_from_diff.py diffs/$i/fp.txt > diffs/$i/temp_fp
