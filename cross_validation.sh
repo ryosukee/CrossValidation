@@ -17,7 +17,7 @@ done
 [ -e models ] && rm -r models
 [ -e results ] && rm -r results
 [ -e diffs ] && rm -r diffs
-[ -e evaluations ] && rm -r evaluations
+#[ -e evaluations ] && rm -r evaluations
 [ -e onlyBI ] && rm -r onlyBI
 [ -e splits ] && rm -r splits
 [ -e conllevals ] && rm -r conllevals
@@ -28,7 +28,7 @@ mkdir trains
 mkdir models
 mkdir results
 mkdir diffs
-mkdir evaluations
+#mkdir evaluations
 mkdir onlyBI
 mkdir splits
 mkdir conllevals
