@@ -2,7 +2,7 @@
 
 
 ##### TODO
-* conllevalの交差検定のMicro値を計算, 出力する  
+* conllevalの交差検定のMicro平均値を計算, 出力する  
 * 入力データの区切り文字をdオプションによる指定（タブと空白）
 
 
@@ -31,7 +31,7 @@
 
 * conlleval  
 [conll2000のスクリプト][conll]を使って評価した結果が出力されます。  
-conll\_calc.pyを使って交差検定のMacro値をcross\_evaluation.txtに出力しています。  
+conll\_calc.pyを使って交差検定のMacro平均値をcross\_evaluation.txtに出力しています。  
 
 * diffs  
 tp, fp, fnの事例を出力しています。  
