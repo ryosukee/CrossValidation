@@ -50,7 +50,7 @@ else
 fi
 
 # 評価の時に必要なラベルのリストを作る
-python ./scripts/get_classes.py ./labeled_data/*
+#python ./scripts/get_classes.py ./labeled_data/*
 
 
 # ここからテスト
