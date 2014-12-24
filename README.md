@@ -2,10 +2,6 @@
 
 
 ##### TODO
-* 系列ラベリングなのにBとIを別々に評価してる（系列で評価してない）のを直す  
-* 自前のgradeは不要  
-* diffもBとIを別々にとっている  
-* (現状、評価はconllevalを見てください)  
 * conllevalの交差検定のMicro値を計算, 出力する  
 * 入力データの区切り文字をdオプションによる指定（タブと空白）
 
@@ -31,24 +27,16 @@
 
 ### 結果
 実行すると以下のディレクトリができます。  
-評価結果はconllevalとevaluationsに出力されます。  
+評価結果はconllevalに出力されます。  
 
 * conlleval  
 [conll2000のスクリプト][conll]を使って評価した結果が出力されます。  
 conll\_calc.pyを使って交差検定のMacro値をcross\_evaluation.txtに出力しています。  
 
 * diffs  
-間違えていた部分を抽出して出力しています。  
+tp, fp, fnの事例を出力しています。  
+diff.txtは間違えた事例全てです。  
 実際にデータを見て確かめたいときに見てください。   
-
-* dumps  
-計算するために必要な途中経過をdumpしたbinaryデータです。  
-処理が終わったら基本的にもう必要ありません。  
-eval.のファイルがdict, class\_list.pklがlistで、それぞれpythonのpickleモジュールでシリアライズしています。  
-
-* evaluations  
-自前で用意したeval.pyスクリプトによって評価した結果が出力されます。  
-cross\_evaluation.txtは交差検定のMacro平均とMicro平均の計算結果です。
 
 * models  
 学習したモデルが出力されます。  
