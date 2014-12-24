@@ -4,8 +4,8 @@ import sys
 
 out_dir = sys.argv[2]
 
-open(out_dir+"/fp", "w").write("")
-open(out_dir+"/fn", "w").write("")
+open(out_dir+"/fp.txt", "w").write("")
+open(out_dir+"/fn.txt", "w").write("")
 
 phrase = str()
 for line in open(sys.argv[1]):

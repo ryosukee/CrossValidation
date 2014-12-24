@@ -83,12 +83,23 @@ for i in 0 1 2 3 4 5 6 7 8 9
         t1=`date +%s`
         echo "-----------diff $i-----------"
         mkdir diffs/$i
-		python ./scripts/diff.py results/result.$i.temp > diffs/$i/diff.temp
+		python ./scripts/extract_fptn/diff.py results/result.$i.temp > diffs/$i/diff.txtt
+        python ./scripts/extract_fptn/spl_diff.py diffs/$i/diff.txt diffs/$i/
+        python ./scripts/extract_fptn/get_tp.py results/result.$i.temp > diffs/$i/tp.txt
+        python ./scripts/extract_fptn/get_word_from_diff.py diffs/$i/fp.txt > diffs/$i/temp_fp
+        python ./scripts/extract_fptn/get_word_from_diff.py diffs/$i/tp.txt > diffs/$i/temp_tp
+        python ./scripts/extract_fptn/get_word_from_diff.py diffs/$i/fn.txt > diffs/$i/temp_fn
+        echo "tp" > diffs/$i/temp_tp2
+        echo "\nfp" > diffs/$i/temp_fp2
+        echo "\nfn" > diffs/$i/temp_fn2
+        cat diffs/$i/temp_tp2 diffs/$i/temp_tp diffs/$i/temp_fp2 diffs/$i/temp_fp diffs/$i/temp_fn2 diffs/$i/temp_fn > diffs/$i/tpfpfn.txt
+        rm diffs/$i/temp_tp2 diffs/$i/temp_tp diffs/$i/temp_fp2 diffs/$i/temp_fp diffs/$i/temp_fn2 diffs/$i/temp_fn
+
         t2=`date +%s`
         echo `expr $t2 - $t1`sec
         t1=`date +%s`
         echo "-----------grade $i-----------"
-        python ./scripts/eval.py results/result.$i.temp ./dumps/class_list.pkl ./dumps/eval.$i.dump diffs/$i> evaluations/eval.$i.txt
+        #python ./scripts/eval.py results/result.$i.temp ./dumps/class_list.pkl ./dumps/eval.$i.dump diffs/$i> evaluations/eval.$i.txt
         perl ./scripts/conlleval.pl -d "\t" < results/result.$i.temp > conllevals/eval.$i
        
         t2=`date +%s`
@@ -98,7 +109,7 @@ for i in 0 1 2 3 4 5 6 7 8 9
     done
 t1=`date +%s`
 echo "-------cross grade---------"
-python scripts/cross_grade.py ./dumps/eval.* > evaluations/cross_evaluation.txt
+#python scripts/cross_grade.py ./dumps/eval.* > evaluations/cross_evaluation.txt
 python scripts/conll_calc.py ./conllevals/* > conllevals/cross_evaluation.txt
 
 t2=`date +%s`
