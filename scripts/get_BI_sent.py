@@ -2,8 +2,6 @@
 #coding:utf-8
 import sys
 
-# 複数のラベルがついてる場合に最初についたラベルだけ拾ってるの直したい
-
 limit = int(sys.argv[1])
 files = sys.argv[2:]
 out_strs = dict()
@@ -32,12 +30,17 @@ for f in files:
                 open("others", "a").write(sent)
             else:
                 c = fo_name[0][1]
-                name = "_".join(x[0] for x in fo_name)
-                # if file name is too long
-                if len(name.decode("utf-8")) > 20:
-                    name = name.decode("utf-8")[:20].encode("utf-8") + "....txt"
+                if len(x[0] for x in fo_name) != 1:
+                    name = "mix_file"
                 else:
-                    name += ".txt"
+                    name = "%s.txt" % fo_name[0][0]
+                
+#                name = "_".join(x[0] for x in fo_name)
+#                # if file name is too long
+#                if len(name.decode("utf-8")) > 20:
+#                    name = name.decode("utf-8")[:20].encode("utf-8") + "....txt"
+#                else:
+#                    name += ".txt"
                 #out_strs[name] = out_strs.get(name, str())
                 if nonlimitFlag or count.get(name, (0,c))[0] != limit:
                  #   out_strs[name] += sent
