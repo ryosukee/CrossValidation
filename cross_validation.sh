@@ -5,10 +5,12 @@
 
 # オプション引数の解析
 FLG_O="f"
-while getopts o OPT
+VALUE_I=5
+while getopts oi: OPT
 do
     case $OPT in
         "o" ) FLG_O="TRUE" ;;
+        "i" ) VALUE_I=$OPTARG ;;
     esac
 done
 
@@ -35,49 +37,79 @@ mkdir conllevals
 #mkdir dumps
 
 # Oのみの文を除外する
-if [ $FLG_O = "TRUE" ]
-then
+#if [ $FLG_O = "TRUE" ]
+#then
     cd onlyBI
-    echo create BI nolimit file
+    echo create BI
     python ../scripts/get_BI_sent.py -1 ../labeled_data/* > temp
     python ../scripts/sort_BI_sent.py temp > result.txt
     rm temp
-    python ../scripts/split_only_BI.py
+    python ../scripts/split_only_BI.py result.txt mix_file others $VALUE_I ../splits/ > ../splits/splits_info.txt
     cd ..
-else
+#else
 # 除外せずに分割する
-    python ./scripts/split.py -f ./labeled_data/* -o ./splits -s 10
-fi
+#    python ./scripts/split.py -f ./labeled_data/* -o ./splits -s 10
+#fi
 
 # 評価の時に必要なラベルのリストを作る
 #python ./scripts/get_classes.py ./labeled_data/*
 
 
-# ここからテスト
-for i in 0 1 2 3 4 5 6 7 8 9
-    do
-        echo "-----------$i-----------"
-        mv ./splits/split.$i.txt ./splits/test.$i.txt
-        cp ./splits/test.$i.txt ./tests
-        cat ./splits/split* > ./trains/train.$i.temp
-        if [ $FLG_O = "TRUE" ]
-        then 
-        # Oオプションがあったときに, trainファイルからOのみの文を除外する
-        python ./scripts/rm_only_O.py ./trains/train.$i.temp > ./trains/train.$i.temp2
-        rm ./trains/train.$i.temp
-        mv ./trains/train.$i.temp2 ./trains/train.$i.temp 
-        fi
+# train, testファイル作成
+temp_i=`expr $VALUE_I - 1`
+for i in `seq 0 $temp_i`
+do
+    echo "-----create test $i------"
+    cat ./splits/split.$i.txt ./splits/split_other.$i.txt > ./tests/test.$i.txt
+    echo "-----create train $i------"
+    mv ./splits/split.$i.txt ./splits/temp
+    cat ./splits/split.*.txt > ./trains/train.$i.txt
+    mv ./splits/temp ./splits/split.$i.txt
+done
+echo "----merge mix file----"
+python ./scripts/merge_mix_to_train.py ./splits ./trains ./splits/splits_info.txt $VALUE_I
 
-        #CRF
+# train, testファイルの文数
+echo "-----train.txt sent count-----"
+for i in `seq 0 $temp_i`
+do
+    echo "train.$i.txt"
+    python ./scripts/sent_count.py ./trains/train.$i.txt
+done
+
+echo "-----test.txt sent count-----"
+for i in `seq 0 $temp_i`
+do
+    echo "test.$i.txt"
+    python ./scripts/sent_count.py ./tests/test.$i.txt
+done
+
+
+# ここからテスト
+for i in `seq 0 $temp_i`
+    do
+#        echo "-----------$i-----------"
+#        mv ./splits/split.$i.txt ./splits/test.$i.txt
+#        cp ./splits/test.$i.txt ./tests
+#        cat ./splits/split* > ./trains/train.$i.temp
+#        if [ $FLG_O = "TRUE" ]
+#        then 
+#            # Oオプションがあったときに, trainファイルからOのみの文を除外する
+#            python ./scripts/rm_only_O.py ./trains/train.$i.temp > ./trains/train.$i.temp2
+#            rm ./trains/train.$i.temp
+#            mv ./trains/train.$i.temp2 ./trains/train.$i.temp 
+#        fi
+
+        #CRF++
         t1=`date +%s`
         echo "-----------train $i-----------"
         #crf_learn -t -a MIRA -p4 -f 3 -c 4.0 template train.$i.temp models/model.$i
-        crf_learn -t -p4 -f 3 -c 4.0 template trains/train.$i.temp models/model.$i
+        crf_learn -t -p4 -f 3 -c 4.0 template trains/train.$i.txt models/model.$i
         t2=`date +%s`
         echo `expr $t2 - $t1`sec
         t1=`date +%s`
         echo "-----------test $i-----------"
-		crf_test -m models/model.$i splits/test.$i.txt > results/result.$i.txt
+		crf_test -m models/model.$i tests/test.$i.txt > results/result.$i.txt
         t2=`date +%s`
         echo `expr $t2 - $t1`sec
         t1=`date +%s`
@@ -104,8 +136,6 @@ for i in 0 1 2 3 4 5 6 7 8 9
        
         t2=`date +%s`
         echo `expr $t2 - $t1`sec
-
-        mv splits/test.$i.txt splits/split.$i.txt   
     done
 t1=`date +%s`
 echo "-------cross grade---------"
