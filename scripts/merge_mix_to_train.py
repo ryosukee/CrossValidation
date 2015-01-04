@@ -19,20 +19,29 @@ for line in open(sys.argv[3]):
             sent = list()
             pre_label = "O"
             ii = 0
+            info = list()
             for l in open(sys.argv[1]+"/split_mix."+str(j)+".txt"):
                 if l.strip() == "":
                     # ここで書き換えて書き込む
+                    #print "---"
                     for si, ei, su in info:
                         if su in (s for s,c in pare_list):
                             for ind in range(si, ei+1):
+                                #print sent[ind][0], sent[ind][-1], "to O"
                                 sent[ind][-1] = "O"
+                                
                     if not all(tok[-1] == "O" for tok in sent):
                         for lll in sent:
-                            fw_train.write(" ".join(lll))
-                        fw_train.write("")
+                            fw_train.write(" ".join(lll)+"\n")
+                        fw_train.write("\n")
+                        #print "outputs this sentence"
+                    else:
+                        pass
+                        #print "remove this sentence"
                     ii = 0
                     sent = list()
                     pre_label = "O"
+                    info = list()
                 else:
                     # ラベルのついた箇所のindexとsurfaceをとっておく
                     spl = l.strip().split(" ")
@@ -54,11 +63,13 @@ for line in open(sys.argv[3]):
                             surface = spl[0]
                         else:
                             surface += spl[0]
+                    pre_label = label
                     ii += 1
                              
         pare_list = list()
     elif len(spl) == 1:
         i = int(spl[0])
+        #print i
     else:
         pare_list.append((spl[1].split(".txt")[0], spl[2]))
 
