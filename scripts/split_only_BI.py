@@ -61,21 +61,21 @@ for line in open(sys.argv[2]):
             sent_index = 0
     else:
         spl = line.strip().split(" ")
-        label = spl[2]
+        label = spl[-1]
         if label == "O":
             if pre_label == "B" or pre_label == "I":
                 info.append((temp_surface, temp_cat))
             pre_label = "O"
             continue
         else:
-            label = spl[2].split("-")[0]
+            label = spl[-1].split("-")[0]
             if pre_label == "O":
                 temp_surface = spl[0]
-                temp_cat = spl[2].split("-")[1]
+                temp_cat = spl[-1].split("-")[1]
             elif pre_label == "B" and label == "B":
                 info.append((temp_cat, temp_surface))
                 temp_surface = spl[0]
-                temp_cat = spl[2].split("-")[1]
+                temp_cat = spl[-1].split("-")[1]
             else:
                 temp_surface += spl[0]
             pre_label = label
