@@ -25,9 +25,9 @@ outputs_other = list()
 for i in range(int(sys.argv[4])):
     bins.append(int())
     split_info.append(list())
-    outputs.append(open(sys.argv[5]+"/split."+str(i), "w"))
-    outputs_mix.append(open(sys.argv[5]+"/split_mix."+str(i), "w"))
-    outputs_other.append(open(sys.argv[5]+"/split_other."+str(i), "w"))
+    outputs.append(open(sys.argv[5]+"/split."+str(i)+".txt", "w"))
+    outputs_mix.append(open(sys.argv[5]+"/split_mix."+str(i)+".txt", "w"))
+    outputs_other.append(open(sys.argv[5]+"/split_other."+str(i)+".txt", "w"))
 
 
 # カテゴリ毎にビンに振り分ける
