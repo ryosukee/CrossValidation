@@ -59,6 +59,7 @@ for line in open(sys.argv[2]):
         sent_index += 1
         if sent_index == int(sys.argv[4]):
             sent_index = 0
+        sent = str() 
     else:
         spl = line.strip().split(" ")
         label = spl[-1]
