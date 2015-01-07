@@ -133,7 +133,8 @@ then
         done
     done
     
-    python ./scripts/tune_best_f.py cross_info.conf tune/conllevals/* > tune_result.txt
+    python ./scripts/tune_best_f.py cross_info.conf temp.conf tune/conllevals/* > tune_result.txt
+    mv temp.conf cross_info.conf
     for line in `cat tune_result.txt`
     do
         first=`echo ${line} | cut -d ':' -f 1`
