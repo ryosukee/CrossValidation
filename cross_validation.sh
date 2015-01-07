@@ -147,7 +147,6 @@ then
    
     echo "f:$VALUE_F, c:$VALUE_C" 
 fi
-exit
 
 
 echo "-----cross validation-----"
@@ -158,7 +157,7 @@ do
     t1=`date +%s`
     echo "-----------train $i-----------"
     #crf_learn -t -a MIRA -p4 -f 3 -c 4.0 template train.$i.temp models/model.$i
-    crf_learn -t -p4 -f 3 -c 4.0 template trains/train.$i.txt models/model.$i
+    crf_learn -t -p4 -f $VALUE_F -c $VALUE_C template trains/train.$i.txt models/model.$i
     t2=`date +%s`
     echo `expr $t2 - $t1`sec
     t1=`date +%s`
