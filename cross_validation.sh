@@ -68,6 +68,7 @@ fi
 mkdir conllevals
 
 
+temp_i=`expr $VALUE_I - 1`
 # 分割ファイルの作成
 if [ $FLG_S = "TRUE" ]
 then
@@ -81,7 +82,6 @@ then
     cd ..
 
     # train, testファイル作成
-    temp_i=`expr $VALUE_I - 1`
     for i in `seq 0 $temp_i`
     do
         echo "-----create test $i------"
