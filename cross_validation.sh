@@ -25,7 +25,7 @@ done
 
 
 # オプション引数の解析
-FLG_O="FALSE"
+FLG_S="FALSE"
 FLG_T="FALSE"
 while getopts st OPT
 do
@@ -133,7 +133,7 @@ then
         done
     done
     
-    python ./scripts/tune_best_f.py tune/conllevals/* > tune_result.txt
+    python ./scripts/tune_best_f.py cross_info.conf tune/conllevals/* > tune_result.txt
     for line in `cat tune_result.txt`
     do
         first=`echo ${line} | cut -d ':' -f 1`

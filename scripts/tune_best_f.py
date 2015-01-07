@@ -1,9 +1,9 @@
 import sys
 """
-python tune_best_f.py [conlleval_file] [conlleval_file] ...
+python tune_best_f.py [cross_info.conf] [conlleval_file] [conlleval_file] ...
 """
 
-files = sys.argv[1:]
+files = sys.argv[2:]
 maxf = 0.0
 bestf = 3
 bestc = 3
@@ -20,4 +20,15 @@ for fi in files:
         else:
             continue
 print "f:%d c:%d bestF:%f" % (bestf, bestc, maxf)
+
+# output to config file
+for line in open(sys.argv[1]):
+    if line.startswith("f:"):
+        print "f:%d" % bestf
+        continue
+    if line.startswith("c:"):
+        print "c:%d" % bestc
+        continue
+    print line
+
 
