@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# bash ./cross_validation.sh -s -i 10 -t
+# bash ./cross_validation.sh -s -t
 # -s : ファイルの分割を行う（一度だけで良い）
 # -t: tuningを行う
 # 分割数の指定とパラメータの指定は別ファイルで指定する
@@ -92,12 +92,8 @@ then
         mv ./splits/temp ./splits/split.$i.txt
     done
     echo "----merge mix file----"
-    # ラベルをOに置き換えるのでは時間めっちゃかかるから、一度ラベルを消して付け直す方がいい
-    #python ./scripts/merge_mix_to_train.py ./splits ./trains ./splits/splits_info.txt $VALUE_I
-    #TODO
-    # ラベルを削除
-    # ラベル付けるための辞書の作り直し
-    # ラベルを振り直す
+    # ここめっちゃ時間かかる
+    python ./scripts/merge_mix_to_train.py ./splits ./trains ./splits/splits_info.txt $VALUE_I
     
     
     # train, testファイルの文数
