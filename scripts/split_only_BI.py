@@ -54,7 +54,12 @@ for line in open(sys.argv[2]):
     sent += line
     if line.strip() == "":
         for inf in info:
-            split_info[sent_index].append((1, inf[0], inf[1]))
+            temp_tupl = filter(lambda x: x[1] == inf[0] and x[2] == inf[1], split_info[sent_index])
+            if not temp_tupl:
+                split_info[sent_index].append((1, inf[0], inf[1]))
+            else:
+                split_info[sent_index].remove(temp_tuple)
+                split_info[sent_index].append(temp_tuple[0]+1, temp_tuple[1], temp_tuple[2])
         outputs_mix[sent_index].write(sent)
         sent_index += 1
         if sent_index == int(sys.argv[4]):
