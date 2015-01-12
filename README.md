@@ -11,14 +11,21 @@
 2. labeled\_dataディレクトリにCRF++に入力する形式のラベル付きデータを入れる（複数ファイル可）  
 (このとき、最初からある`replase_this_to_labeled_data`というファイルを消してください) 
 3. template を自分が使うテンプレートに置き（書き）換える
-4. ./cross\_validation.sh を実行  
+4. cross\_info.confを設定する  
+5. ./cross\_validation.sh を実行
+
+### オプション
+* t: チューニングを行う
+* s: ファイルの分割を行う（最初は必須）
+
 例)  
-`./cross_validation.sh -o > result`  
+`./cross_validation.sh -t -s > result`  
 
--o オプションをつけるとトレーニング時にOのラベルしかついていない文を除きます。
+### チューニング
+分割を行った後に、ある一つの分割ファイルを使ってCRF++のパラメータ（c, f）のチューニングを行う  
+結果はtune\_result.txtに出力され、自動でcross\_info.confのパラメータ設定も書き換えます。  
 
-ちなみに、以下のスクリプトで文数（空行の数）を数えられます。  
-`python scripts/sent_count.py inputfile`  
+
 
 ### 注意
 * 入力データの区切り文字は半角スペースのみ対応しています, タブ区切りでは区切り
