@@ -32,7 +32,7 @@ cross\_info.confに交差検定の設定を記述します。
 * f: CRF++のパラメータf
 * c: CRF++のパラメータc
 * split\_type: 分割の方法  
-  0: 厳格に分割する。testに含まれる正例はtraining時には隠す
+  0: 厳格に分割する。testに含まれる正例はtraining時には隠す  
   1: 単純に分割する。
 
 
@@ -75,6 +75,9 @@ testデータとして使われたデータが出力されます。
 * trains  
 trainデータとして使われたデータが出力されます。  
 `-o`オプションを指定した場合は、ここでOのみの文は除外されています。  
+
+* tune
+チューニング時に使用したモデルや結果が出力されます。  
 
 [conll]: http://www.cnts.ua.ac.be/conll2000/chunking/output.html
 
