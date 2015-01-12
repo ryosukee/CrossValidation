@@ -22,9 +22,18 @@
 `./cross_validation.sh -t -s > result`  
 
 ### チューニング
-分割を行った後に、ある一つの分割ファイルを使ってCRF++のパラメータ（c, f）のチューニングを行う  
+分割した一部のファイルを使ってCRF++のパラメータ（c, f）のチューニングを行う  
 結果はtune\_result.txtに出力され、自動でcross\_info.confのパラメータ設定も書き換えます。  
 
+### 設定（cross\_info.conf）
+cross\_info.confに交差検定の設定を記述します。  
+用意されてるファイルの数字だけ書き換えて使ってください。  
+* DivisionNumber:分割数
+* f: CRF++のパラメータf
+* c: CRF++のパラメータc
+* split\_type: 分割の方法  
+  0: 厳格に分割する。testに含まれる正例はtraining時には隠す
+  1: 単純に分割する。
 
 
 ### 注意
