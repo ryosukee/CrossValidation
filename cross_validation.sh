@@ -20,6 +20,7 @@ do
         "DivisionNumber" ) VALUE_I=$second ;;
         "f" ) VALUE_F=$second ;;
         "c" ) VALUE_C=$second ;;
+        "split_type" ) VALUE_STYPE=$second ;;
     esac
 done
 
@@ -73,28 +74,56 @@ temp_i=`expr $VALUE_I - 1`
 if [ $FLG_S = "TRUE" ]
 then
 
-    cd onlyBI
-    echo create BI
-    python ../scripts/get_BI_sent.py -1 ../labeled_data/* > temp
-    python ../scripts/sort_BI_sent.py temp > result.txt
-    rm temp
-    python ../scripts/split_only_BI.py result.txt mix_file others $VALUE_I ../splits/ > ../splits/splits_info.txt
-    cd ..
-
-    # train, testファイル作成
-    for i in `seq 0 $temp_i`
-    do
-        echo "-----create test $i------"
-        cat ./splits/split.$i.txt ./splits/split_other.$i.txt > ./tests/test.$i.txt
-        echo "-----create train $i------"
-        mv ./splits/split.$i.txt ./splits/temp
-        cat ./splits/split.*.txt > ./trains/train.$i.txt
-        mv ./splits/temp ./splits/split.$i.txt
-    done
-    echo "----merge mix file----"
-    # ここめっちゃ時間かかる
-    python ./scripts/merge_mix_to_train.py ./splits ./trains ./splits/splits_info.txt $VALUE_I
+    # 厳格に区切る
+    if [ $VALUE_STYPE = "0" ]
+    then
+        cd onlyBI
+        echo create BI
+        python ../scripts/get_BI_sent.py -1 ../labeled_data/* > temp
+        python ../scripts/sort_BI_sent.py temp > result.txt
+        rm temp
+        python ../scripts/split_only_BI.py result.txt mix_file.txt others $VALUE_I ../splits/ > ../splits/splits_info.txt
+        cd ..
     
+        # train, testファイル作成
+        for i in `seq 0 $temp_i`
+        do
+            echo "-----create test $i------"
+            cat ./splits/split.$i.txt ./splits/split_other.$i.txt > ./tests/test.$i.txt
+            echo "-----create train $i------"
+            mv ./splits/split.$i.txt ./splits/temp
+            cat ./splits/split.*.txt > ./trains/train.$i.txt
+            mv ./splits/temp ./splits/split.$i.txt
+        done
+        echo "----merge mix file----"
+        # ここめっちゃ時間かかる
+        python ./scripts/merge_mix_to_train.py ./splits ./trains ./splits/splits_info.txt $VALUE_I
+    
+    # 単純に分割する
+    elif [ $VALUE_STYPE = "1" ]
+    then
+        cd onlyBI
+        echo create BI
+        python ../scripts/get_BI_sent.py -1 ../labeled_data/* > temp
+        rm temp
+        python ../scripts/split.py -f ./*.txt -o ../splits -s $VALUE_I
+        python ../scripts/split.py -f ./others -o ../splits -s $VALUE_I -n split_other
+        cd ..
+        # train, testファイル作成
+        for i in `seq 0 $temp_i`
+        do
+            echo "-----create test $i------"
+            cat ./splits/split.$i.txt ./splits/split_other.$i.txt > ./tests/test.$i.txt
+            echo "-----create train $i------"
+            mv ./splits/split.$i.txt ./splits/temp
+            cat ./splits/split.*.txt > ./trains/train.$i.txt
+            mv ./splits/temp ./splits/split.$i.txt
+        done
+
+    else
+        echo can not understand split type 
+        exit 
+    fi 
     
     # train, testファイルの文数
     echo "-----train.txt sent count-----"

@@ -31,7 +31,7 @@ for f in files:
             else:
                 c = fo_name[0][1]
                 if len([x[0] for x in fo_name]) != 1:
-                    name = "mix_file"
+                    name = "mix_file.txt"
                 else:
                     name = "%s.txt" % fo_name[0][0]
                 
@@ -45,7 +45,7 @@ for f in files:
                 if nonlimitFlag or count.get(name, (0,c))[0] != limit:
                  #   out_strs[name] += sent
                     open(name, "a").write(sent)
-                    if name != "mix_file":
+                    if name != "mix_file.txt":
                         count[name] = (count.get(name, (0,c))[0] + 1, c)
             fo_name = list() 
             sent = str()

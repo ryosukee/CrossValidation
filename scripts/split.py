@@ -28,6 +28,14 @@ def getArgs():
         help="分割する数"
     )
 
+    parser.add_argument(
+        "-n", "--split-name",
+        dest="name",
+        type=str,
+        default="split",
+        help="分割後の名前, [name].[num].txtになる"
+    )
+
     return parser.parse_args()
 
 args = getArgs()
@@ -44,7 +52,7 @@ line_per_file = sent_count/args.split_num
 # split and write
 sent_count = 0
 file_prefix = 0
-outf = open(args.output_dir+"/split."+str(file_prefix)+".txt", "w")
+outf = open("%s/%s.%d.txt" % (args.output_dir, args.name, file_prefix), "w")
 for inf in args.input_files:
     for line in open(inf):
         if line.strip() == "":
@@ -53,7 +61,7 @@ for inf in args.input_files:
             file_prefix += 1
             sent_count = 0
             outf.close()
-            outf = open(args.output_dir+"/split."+str(file_prefix)+".txt", "w")
+            outf = open("%s/%s.%d.txt" % (args.output_dir, args.name, file_prefix),"w")
         outf.write(line)
 outf.close()
 
