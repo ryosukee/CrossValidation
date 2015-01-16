@@ -27,6 +27,8 @@ for f in sys.argv[1:]:
         elif line.startswith("processed"):
             total = int(spl[1].split()[-2])
             correct = int(spl[-1].split()[-1][:-1])
+            
+            d[0] = d.get(0, dict())
             d[0]["Total"] = d[0].get("Total", int()) + total
             d[0]["Correct"] = d[0].get("Correct", int()) + correct
             continue
