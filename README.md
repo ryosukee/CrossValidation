@@ -3,7 +3,7 @@
 
 ##### TODO
 * 厳格な分割にめちゃくちゃ時間かかるのをどうにかする  
-* conllevalの交差検定のMicro平均値を計算, 出力する  
+* conllevalの交差検定のMacro・Micro平均値を計算, 出力する  
 * 分割せずに実行された場合エラー表示  
 * 入力データの区切り文字をdオプションによる指定（タブと空白）  
 * コードのリファクタリング（非常に読みづらい）
@@ -51,7 +51,7 @@ cross\_info.confに交差検定の設定を記述します。
 
 * conlleval  
 [conll2000のスクリプト][conll]を使って評価した結果が出力されます。  
-conll\_calc.pyを使って交差検定のMacro平均値をcross\_evaluation.txtに出力しています。  
+conll\_calc.pyを使って交差検定の平均値をcross\_evaluation.txtに出力しています。  
 
 * diffs  
 tp, fp, fnの事例を出力しています。  
